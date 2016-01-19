@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<title>Color Wheel</title>
+	<style type="text/css">
+
+		@font-face {
+		  font-family: 'BELLABOO-Regular';
+		  src: url('fonts/BELLABOO-Regular.eot?#iefix') format('embedded-opentype'),  url('fonts/BELLABOO-Regular.woff') format('woff'), url('fonts/BELLABOO-Regular.ttf')  format('truetype'), url('fonts/BELLABOO-Regular.svg#BELLABOO-Regular') format('svg');
+		  font-weight: normal;
+		  font-style: normal;
+		}
+
+		html,body{
+			text-align: center;
+			width: 100%;
+			height: 100%;
+			background-color: #E9ECEC;
+			overflow: hidden;
+			font-size: 16px;
+		}
+
+		.game-roll:before {
+		  content: '';
+		  display: inline-block;
+		  height: 100%;
+		  vertical-align: middle;
+		}
+
+		.game-roll{
+			text-align: center;
+			width: 100%;
+			height: 100%;
+		}
+
+		.game-roll div{
+			display: inline-block;
+			width: 50%;
+		}
+
+		.game-roll div:first-child{
+			width: 10%;
+		}
+
+		button{
+			background-color: white;
+		    font-size: 1.5em;
+		    border: none;
+		    font-family: 'BELLABOO-Regular';
+		    margin: 5px;
+		    padding: 5px;
+		    cursor: pointer;
+		    border-radius: 10px;
+		    box-shadow: 0px 3px 0px #D0CFCF;
+		}
+
+		button:active{
+		    margin: 5px 5px 3px 5px;
+		}
+
+		canvas {
+		  display: inline-block;
+		  vertical-align: middle;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="game-roll">
+		<div>
+			<button id="change">Change Number</button>
+			<button id="start">Start</button>
+		</div>
+		<div>
+			<canvas></canvas>
+		</div>
+	</div>
+</body>
+<script src="roleta.js"></script>
+<script type="text/javascript">
+var app = (function() {
+
+    var self = {};
+
+    self.init = function(){
+    	var rol = new Roleta({canvas:document.getElementsByTagName("canvas")[0],quantidade:12});
+		rol.init();
+		 
+		document.getElementById("change").addEventListener("click",function(){
+		 	if(rol.inicia){
+		 		clearInterval(rol.interval);
+		 		rol.inicia = false;
+		 	}
+		 	var num = Math.floor(Math.random()*11+2);
+		 	rol = new Roleta({canvas:document.getElementsByTagName("canvas")[0],quantidade:num});
+		 	rol.init();
+		 	
+		});
+
+		document.getElementById("start").addEventListener("click",function(){
+		 	rol.sortearRoleta();
+		});
+
+		self.consoleText();
+    }
+	
+
+	self.gotoWebsite = function(){
+        window.open('http://www.thatianepisco.com');
+    }
+
+    self.consoleText = function(){
+        console.log('%c made with <3 ', 'background: #E9ECEC; color: #8C254E');
+        console.log('%c by Thatiane Pisco - www.thatianepisco.com', 'background: #E9ECEC; color: #8C254E');
+        console.log('%c Would you like to see more? -> seeMore()', 'background: #E9ECEC; color: #8C254E');
+    }
+
+    self.init();
+
+    window.seeMore = self.gotoWebsite;
+
+}());
+
+</script>
+</html>
